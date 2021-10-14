@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+                <!-- Bootstrap CSS -->
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+                    <style>
+                        img{
+                            width:100%; 
+                            margin:auto;
+                            height:auto;
+                            align-self:center;
+                        }
+                        .tales {
+                            width:50%;
+                        }
+
+                        .carousel-inner {
+                            width:50%;
+                            max-height: 15% !important;
+                            align-content:center;
+                        }
+                        .carousel-inner img{
+                            margin:auto;
+                            text-align:center;
+                        }
+                    </style>
+                    <title>Celebrity Heights</title>
+                    </head>
+                    <body>
+                        <!-- Main Body of Page -->
+                        <div class="mt-4 p-5 bg-primary text-white rounded">
+                            <h1>Celebrity Heights</h1>
+                            <p>Find out who is taller or shorter than you!</p>
+                        </div>
+                        <!--Add Navbar Here --> 
+                        <div>
+                            <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+                                <div class="container-fluid">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#">Active</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Link</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Link</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link disabled" href="#">Disabled</a>
+                                        </li>
+                                    </ul>
+                                </div>   
+                            </nav>
+                            <div class="row m-4 border border-dark">
+                                <div class="col-3 text-center m-3">
+                                    <span class="h3">Edit Celebrity Height</span>
+                                </div>
+                                <div class="col-7 text-center m-3">
+                                    <form action="editTeacher" method="POST">
+                                        <div class="form-group row">
+                                            <label for="celebName" class="col-3 col-form-label">
+                                                CelebName</label>
+                                            <div class="col-9">
+                                                <input type="text" name="celebName" id="celebName" 
+                                                       class="form-control" th:value="${celeb.celebName}"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="totalInches" class="col-3 col-form-label">
+                                                Total Inches</label>
+                                            <div class="col-9">
+                                                <input type="text" name="totalInches" id="totalInches" 
+                                                       class="form-control"  th:value="${celeb.totalInches}"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="totalInchesString" class="col-3 col-form-label">
+                                                Total Inches String</label>
+                                            <div class="col-9">
+                                                <input type="text" name="totalInchesString" id="totalInchesString" 
+                                                       class="form-control" th:value="${celeb.totalInchesString}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="totalInchesString" class="col-3 col-form-label">
+                                                Picture Url</label>
+                                            <div class="col-9">
+                                                <input type="text" name="photoUrl" id="photoUrl" 
+                                                       class="form-control" th:value="${celeb.photoUrl}">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="celebId" th:value="${celeb.celebId}"/>
+                                        <button type="submit" class="btn btn-primary">
+                                            Update Celebrity</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 style="text-align:center">Randomly chosen Celebrities</h3>
+                        <div class="card-group">
+                            <div >
+                                <div class="container-md" th:each="celeb : ${carouselCelebs}" style="float:left">
+                                    <div class="card" style="width:200px">
+                                        <img class="card-img-top" src="https://lh3.googleusercontent.com/proxy/4OGpaxS2ws_EVa9HdJfp39CjNuYlXh0hTdPEL3vQZYnZEba7o7Zv5h7D_lrfa6Qtoc9wIniKEi13HD9taiPm718" alt="Card image" style="width:100%">
+                                            <div class="card-body">
+                                                <h4 class="card-title" th:text="${celeb.celebName}">John Doe</h4>
+                                                <p class="card-text"th:text="${celeb.totalInchesString}">Some example text some example text. John Doe is an architect and engineer</p>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Carousel -->
+
+                        <!--Add scrollable table here -->
+                        <div class="row m-4 border border-dark">
+                            <div class="col text-center m-3">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Celeb Id</th>
+                                            <th>Name</th>
+                                            <th>Total Inches</th>
+                                            <th>Height</th>
+                                            <th>EDIT</th>
+                                            <th>DELETE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="celeb : ${allCelebs}">
+                                            <td th:text="${celeb.celebId}">Celeb Id</td>
+                                            <td th:text="${celeb.celebName}">Name</td>
+                                            <td th:text="${celeb.totalInches}">Total Inches</td>
+                                            <td th:text="${celeb.totalInchesString}">Height</td>
+                                            <td><a href="#" th:href="@{/editTeacher(id=${celeb.celebId})}">Edit</a></td>
+                                            <td><a href="#" th:href="@{/deleteCeleb(id=${celeb.celebId})}">Delete</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End main body -->
+                        <!-- Optional JavaScript -->
+                        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+                        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+                    </body>
+                    </html>;
